@@ -39,10 +39,12 @@ class AmazonScraper:
         """
         Extract and normalise a price string into a float.
 
-        Handles both EU (€, comma-decimal) and US ($, dot-decimal) formats:
-            "$1,299.99"  → 1299.99
-            "€59,99"     → 59.99
-            "€1.299,99"  → 1299.99
+        Handles symbol prefixes (€, $, £) and currency code prefixes (EUR, USD, GBP)
+        with optional non-breaking spaces, plus both EU and US decimal formats:
+            "$1,299.99"       → 1299.99
+            "€59,99"          → 59.99
+            "€1.299,99"       → 1299.99
+            "EUR\xa068.30"    → 68.30
 
         Args:
             text: raw string containing the price.
@@ -53,13 +55,18 @@ class AmazonScraper:
         Raises:
             ValueError: if no valid price pattern is found.
         """
-        pattern = r"[€£$]\s?\d{1,3}(?:[.,]\d{3})*[.,]\d{2}"
+        pattern = r"(?:[€£$]|EUR|USD|GBP)[\s\xa0]?\d{1,3}(?:[.,]\d{3})*[.,]\d{2}"
         match = re.search(pattern, text)
 
         if not match:
             raise ValueError(f"No valid price found in: {text!r}")
 
-        raw = match.group().replace("€", "").replace("$", "").replace("£", "").replace(" ", "")
+        raw = (
+            match.group()
+            .replace("EUR", "").replace("USD", "").replace("GBP", "")
+            .replace("€", "").replace("$", "").replace("£", "")
+            .replace("\xa0", "").replace(" ", "")
+        )
 
         if "," in raw and "." in raw:
             raw = raw.replace(".", "").replace(",", ".")

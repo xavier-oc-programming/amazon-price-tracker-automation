@@ -24,8 +24,8 @@ class EmailNotifier:
         """
         subject = "Amazon Price Alert!"
         body = (
-            f"The Instant Pot is now ${current_price:.2f} — "
-            f"below your target of ${TARGET_PRICE:.2f}!\n"
+            f"Price dropped to {current_price:.2f} — "
+            f"below your target of {TARGET_PRICE:.2f}!\n"
             f"Check it here: {PRODUCT_URL}"
         )
         message = f"Subject:{subject}\n\n{body}"

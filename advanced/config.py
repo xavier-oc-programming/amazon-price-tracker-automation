@@ -4,10 +4,7 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent.parent
 
 # ── Scraping ─────────────────────────────────────────────────────────────────
-PRODUCT_URL = (
-    "https://www.amazon.com/dp/B075CYMYK6"
-    "?ref_=cm_sw_r_cp_ud_ct_FM9M699VKHTT47YD50Q6&th=1"
-)
+PRODUCT_URL = "https://www.amazon.es/dp/B0CZXWGK79"
 
 BROWSER_HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -29,7 +26,7 @@ BROWSER_HEADERS = {
 PRICE_CSS_CLASS = "aok-offscreen"
 
 # ── Thresholds ────────────────────────────────────────────────────────────────
-TARGET_PRICE = 100.00  # USD — send alert if price drops below this
+TARGET_PRICE = 140.00  # EUR — send alert if price drops below this
 
 # ── Email / SMTP ──────────────────────────────────────────────────────────────
 SMTP_PORT = 587

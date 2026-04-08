@@ -18,7 +18,7 @@ TARGET_EMAIL = os.getenv("TARGET_EMAIL")
 # -------------------------------------------------------
 # 2. Define target URL and browser headers
 # -------------------------------------------------------
-URL = "https://www.amazon.com/dp/B075CYMYK6?ref_=cm_sw_r_cp_ud_ct_FM9M699VKHTT47YD50Q6&th=1"
+URL = "https://www.amazon.es/dp/B0CZXWGK79"
 
 browser_headers = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -57,7 +57,7 @@ def extract_price(text: str) -> float:
         "€59,99"     → 59.99
         "€1.299,99"  → 1299.99
     """
-    pattern = r"[€£$]\s?\d{1,3}(?:[.,]\d{3})*[.,]\d{2}"  # Works for both US/EU formats
+    pattern = r"(?:[€£$]|EUR|USD|GBP)[\s\xa0]?\d{1,3}(?:[.,]\d{3})*[.,]\d{2}"
     match = re.search(pattern, text)
 
     if not match:
@@ -67,10 +67,9 @@ def extract_price(text: str) -> float:
     print(f"Matched raw price text: {raw_price}")
 
     normalized = (
-        raw_price.replace("€", "")
-        .replace("$", "")
-        .replace("£", "")
-        .replace(" ", "")
+        raw_price.replace("EUR", "").replace("USD", "").replace("GBP", "")
+        .replace("€", "").replace("$", "").replace("£", "")
+        .replace("\xa0", "").replace(" ", "")
     )
 
     # Handle both comma (EU) and dot (US) formats
@@ -99,14 +98,14 @@ print(f"✅ Extracted numeric price: {price:.2f}")
 # -------------------------------------------------------
 # 6. Define target price and send alert if needed
 # -------------------------------------------------------
-TARGET_PRICE = 100.00
+TARGET_PRICE = 140.00
 
 
 def send_email_alert(current_price: float):
     """Send an email alert if product price is below target."""
     subject = "Amazon Price Alert!"
     body = (
-        f"The Instant Pot is now ${current_price:.2f} — below your target of ${TARGET_PRICE:.2f}!\n"
+        f"Price dropped to {current_price:.2f} — below your target of {TARGET_PRICE:.2f}!\n"
         f"Check it here: {URL}"
     )
     message = f"Subject:{subject}\n\n{body}"
