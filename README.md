@@ -69,6 +69,41 @@ python original/main.py
 python advanced/main.py
 ```
 
+### Scheduling (recommended: local cron)
+
+GitHub Actions is **not recommended** for scraping Amazon — their Azure datacenter IPs are flagged by Amazon's bot detection. Running from your local machine works because your home IP looks like a real browser.
+
+**Mac cron setup** (runs daily at 08:00):
+
+1. Grant Terminal Full Disk Access — System Settings → Privacy & Security → Full Disk Access → enable Terminal.
+
+2. Find your project path and Python path:
+
+```bash
+pwd                  # run this from inside the project folder — copy the output
+which python3        # copy the output
+```
+
+3. Install the cron job — replace `<PROJECT_PATH>` and `<PYTHON_PATH>` with the values from step 2:
+
+```bash
+(crontab -l 2>/dev/null; echo "0 8 * * * cd \"<PROJECT_PATH>\" && <PYTHON_PATH> advanced/main.py >> \"<PROJECT_PATH>/tracker.log\" 2>&1") | crontab -
+```
+
+4. Verify it was installed:
+
+```bash
+crontab -l
+```
+
+Output is written to `tracker.log` in the project root. Your Mac must be awake at 08:00 for the job to run — if it's asleep, the job is skipped until the next day.
+
+To remove the cron job later:
+
+```bash
+crontab -e   # opens editor — delete the line and save
+```
+
 ---
 
 ## 2. Builds comparison
@@ -175,7 +210,7 @@ Output
 
 **Advanced-only: modular OOP design** — `AmazonScraper` and `EmailNotifier` are independent classes. Each can be instantiated, tested, or swapped without touching the other.
 
-**Advanced-only: GitHub Actions daily schedule** — The workflow runs `advanced/main.py` every day at 07:00 Madrid time (CET). Secrets are injected from the GitHub repository settings.
+**Advanced-only: local cron schedule** — The recommended way to automate this script is a Mac cron job, not GitHub Actions. See the scheduling section in Quick start for the exact command. A `.github/workflows/` file is included in the repo for reference, but Amazon's bot detection blocks requests from GitHub Actions' Azure datacenter IPs.
 
 **Advanced-only: clean error propagation** — Modules raise typed exceptions (`ValueError`, `RuntimeError`). `main.py` catches them and prints a clean message — the script never crashes silently.
 
@@ -360,6 +395,8 @@ Copy `.env.example` to `.env` and fill in values.
 **Console cleared before every menu render** — The `clear` flag is `True` after any valid action and `False` after invalid input, so error messages stay visible without an extra re-draw.
 
 **Browser-spoofing headers** — Amazon aggressively blocks headless requests. Sending a realistic User-Agent and the full set of Sec-Fetch-* headers is the minimum required to get a real product page back.
+
+**Local cron over GitHub Actions** — The `.github/workflows/` file is included for reference, but GitHub Actions runs on Microsoft Azure datacenter IPs. Amazon knows these IP ranges and treats them as bots regardless of headers. A local cron job runs from your home ISP IP, which looks identical to a real browser visit — no extra configuration needed.
 
 **No `data/`, `input/`, or `output/` directories** — The script reads from the web and writes to email. Nothing is persisted between runs and no files ship with the project, so none of these directories are needed.
 
