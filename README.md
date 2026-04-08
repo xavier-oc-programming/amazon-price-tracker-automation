@@ -73,30 +73,19 @@ python advanced/main.py
 
 GitHub Actions is **not recommended** for scraping Amazon — their Azure datacenter IPs are flagged by Amazon's bot detection. Running from your local machine works because your home IP looks like a real browser.
 
-**Mac cron setup** (runs daily at 08:00):
+A setup script handles everything automatically:
 
 1. Grant Terminal Full Disk Access — System Settings → Privacy & Security → Full Disk Access → enable Terminal.
 
-2. Find your project path and Python path:
+2. Run from the project root:
 
 ```bash
-pwd                  # run this from inside the project folder — copy the output
-which python3        # copy the output
+bash setup_cron.sh
 ```
 
-3. Install the cron job — replace `<PROJECT_PATH>` and `<PYTHON_PATH>` with the values from step 2:
+That's it. The script detects your Python path, verifies `.env` and packages exist, and installs a cron job that runs daily at 08:00. Output is written to `tracker.log` in the project root.
 
-```bash
-(crontab -l 2>/dev/null; echo "0 8 * * * cd \"<PROJECT_PATH>\" && <PYTHON_PATH> advanced/main.py >> \"<PROJECT_PATH>/tracker.log\" 2>&1") | crontab -
-```
-
-4. Verify it was installed:
-
-```bash
-crontab -l
-```
-
-Output is written to `tracker.log` in the project root. Your Mac must be awake at 08:00 for the job to run — if it's asleep, the job is skipped until the next day.
+Your Mac must be awake at 08:00 for the job to run — if it's asleep, the job is skipped until the next day.
 
 To remove the cron job later:
 
@@ -278,6 +267,7 @@ day47-amazon-price-tracker/
 ├── menu.py                    # entry point — draws menu, launches builds
 ├── art.py                     # LOGO constant for menu display
 ├── requirements.txt           # pip dependencies + Python version note
+├── setup_cron.sh              # one-command local cron installer
 ├── .gitignore
 ├── .env.example               # template for required environment variables
 ├── README.md
