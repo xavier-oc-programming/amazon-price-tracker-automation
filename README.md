@@ -135,9 +135,13 @@ python menu.py
 
               Amazon Price Alert — Day 47 of 100 Days of Code
 
-1. Original build  (course version)
-2. Advanced build  (OOP, config.py, modular)
-3. Schedule daily check  (install cron job)
+1. Run original build       (course version)
+2. Run advanced build       (OOP, config.py, modular)
+─────────────────────────────────────────────
+3. Schedule daily check     (install cron job)
+4. Check cron status        (is it active?)
+5. Remove cron job          (stop daily checks)
+─────────────────────────────────────────────
 q. Quit
 
 Select an option:
@@ -268,7 +272,9 @@ day47-amazon-price-tracker/
 ├── menu.py                    # entry point — draws menu, launches builds
 ├── art.py                     # LOGO constant for menu display
 ├── requirements.txt           # pip dependencies + Python version note
-├── setup_cron.sh              # one-command local cron installer
+├── setup_cron.sh              # install daily cron job (menu option 3)
+├── check_cron.sh              # show cron status + last log entries (menu option 4)
+├── remove_cron.sh             # remove cron job (menu option 5)
 ├── .gitignore
 ├── .env.example               # template for required environment variables
 ├── README.md
