@@ -1,0 +1,28 @@
+name: Amazon Price Tracker
+
+on:
+  schedule:
+    # Runs daily at 07:00 Madrid time.
+    # Madrid is CET (UTC+1) in winter → cron '0 6 * * *'
+    # Madrid is CEST (UTC+2) in summer → cron '0 5 * * *'
+    # Using UTC+1 offset here; during summer the run will arrive 1 hour later.
+    - cron: '0 6 * * *'
+  workflow_dispatch:  # allows manual runs from the GitHub UI
+
+jobs:
+  check-price:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run price tracker
+        run: python advanced/main.py
+        env:
+          SMTP_ADDRESS: ${{ secrets.SMTP_ADDRESS }}
+          EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          TARGET_EMAIL: ${{ secrets.TARGET_EMAIL }}
