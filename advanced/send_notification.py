@@ -12,7 +12,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from dotenv import load_dotenv
 load_dotenv(Path(__file__).parent.parent / ".env")
 
-from config import PRODUCT_URL, TARGET_PRICE, SMTP_PORT
+from config import PRODUCT_NAME, PRODUCT_URL, TARGET_PRICE, SMTP_PORT
 from scraper import AmazonScraper
 
 SMTP_ADDRESS = os.getenv("SMTP_ADDRESS")
@@ -34,7 +34,8 @@ if action == "setup":
     subject = "Amazon Price Tracker — Daily Check Activated"
     body = (
         "Your Amazon price tracker is now running automatically.\n\n"
-        f"Product : {PRODUCT_URL}\n"
+        f"Product : {PRODUCT_NAME}\n"
+        f"Link    : {PRODUCT_URL}\n"
         f"Target  : {TARGET_PRICE:.2f} EUR\n"
         f"{price_line}"
         f"Schedule: every day at 08:00\n\n"
@@ -45,7 +46,8 @@ elif action == "remove":
     subject = "Amazon Price Tracker — Daily Check Deactivated"
     body = (
         "Your Amazon price tracker cron job has been removed.\n\n"
-        f"Product : {PRODUCT_URL}\n"
+        f"Product : {PRODUCT_NAME}\n"
+        f"Link    : {PRODUCT_URL}\n"
         f"Target  : {TARGET_PRICE:.2f} EUR\n"
         f"{price_line}\n"
         "The script will no longer run automatically.\n"

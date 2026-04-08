@@ -4,6 +4,7 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent.parent
 
 # ── Scraping ─────────────────────────────────────────────────────────────────
+PRODUCT_NAME = "Kobo Libra Color Ereader"
 PRODUCT_URL = "https://www.amazon.es/dp/B0CZXWGK79"
 
 BROWSER_HEADERS = {

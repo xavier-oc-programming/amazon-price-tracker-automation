@@ -180,7 +180,8 @@ Subject: Amazon Price Tracker — Daily Check Activated
 
 Your Amazon price tracker is now running automatically.
 
-Product : https://www.amazon.es/dp/B0CZXWGK79
+Product : Kobo Libra Color Ereader
+Link    : https://www.amazon.es/dp/B0CZXWGK79
 Target  : 190.00 EUR
 Current price: 149.99 EUR (BELOW target — alert would fire today!)
 Schedule: every day at 08:00
@@ -196,7 +197,8 @@ Subject: Amazon Price Tracker — Daily Check Deactivated
 
 Your Amazon price tracker cron job has been removed.
 
-Product : https://www.amazon.es/dp/B0CZXWGK79
+Product : Kobo Libra Color Ereader
+Link    : https://www.amazon.es/dp/B0CZXWGK79
 Target  : 190.00 EUR
 Current price: 149.99 EUR (BELOW target — alert would fire today!)
 
@@ -419,6 +421,7 @@ All constants are in [advanced/config.py](advanced/config.py). Edit this file to
 
 | Constant | Default | Description |
 |---|---|---|
+| `PRODUCT_NAME` | `"Kobo Libra Color Ereader"` | Human-readable product name shown in all emails. |
 | `PRODUCT_URL` | `https://www.amazon.es/dp/B0CZXWGK79` | The product page to scrape. Replace with any Amazon product URL. |
 | `BROWSER_HEADERS` | Firefox 143 on macOS | Full set of headers sent with every request to avoid bot detection. |
 | `PRICE_CSS_CLASS` | `"aok-offscreen"` | CSS class of the `<span>` containing the price on Amazon product pages. |
@@ -454,8 +457,10 @@ The regex pattern handles all formats Amazon uses by region:
 ```
 Subject: Amazon Price Alert!
 
-Price dropped to 149.99 — below your target of 190.00!
-Check it here: https://www.amazon.es/dp/B0CZXWGK79
+Price dropped to 149.99 EUR — below your target of 190.00 EUR!
+
+Product : Kobo Libra Color Ereader
+Link    : https://www.amazon.es/dp/B0CZXWGK79
 ```
 
 ### Cron install confirmation email
@@ -465,7 +470,8 @@ Subject: Amazon Price Tracker — Daily Check Activated
 
 Your Amazon price tracker is now running automatically.
 
-Product : https://www.amazon.es/dp/B0CZXWGK79
+Product : Kobo Libra Color Ereader
+Link    : https://www.amazon.es/dp/B0CZXWGK79
 Target  : 190.00 EUR
 Current price: 149.99 EUR (BELOW target — alert would fire today!)
 Schedule: every day at 08:00
@@ -481,7 +487,8 @@ Subject: Amazon Price Tracker — Daily Check Deactivated
 
 Your Amazon price tracker cron job has been removed.
 
-Product : https://www.amazon.es/dp/B0CZXWGK79
+Product : Kobo Libra Color Ereader
+Link    : https://www.amazon.es/dp/B0CZXWGK79
 Target  : 190.00 EUR
 Current price: 149.99 EUR (BELOW target — alert would fire today!)
 

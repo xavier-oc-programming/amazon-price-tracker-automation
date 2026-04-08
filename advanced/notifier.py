@@ -1,6 +1,6 @@
 import smtplib
 
-from config import PRODUCT_URL, TARGET_PRICE, SMTP_PORT
+from config import PRODUCT_NAME, PRODUCT_URL, TARGET_PRICE, SMTP_PORT
 
 
 class EmailNotifier:
@@ -24,9 +24,10 @@ class EmailNotifier:
         """
         subject = "Amazon Price Alert!"
         body = (
-            f"Price dropped to {current_price:.2f} — "
-            f"below your target of {TARGET_PRICE:.2f}!\n"
-            f"Check it here: {PRODUCT_URL}"
+            f"Price dropped to {current_price:.2f} EUR — "
+            f"below your target of {TARGET_PRICE:.2f} EUR!\n\n"
+            f"Product : {PRODUCT_NAME}\n"
+            f"Link    : {PRODUCT_URL}"
         )
         message = f"Subject:{subject}\n\n{body}"
 
