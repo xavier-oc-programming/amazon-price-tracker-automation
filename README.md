@@ -137,6 +137,7 @@ python menu.py
 
 1. Original build  (course version)
 2. Advanced build  (OOP, config.py, modular)
+3. Schedule daily check  (install cron job)
 q. Quit
 
 Select an option:
