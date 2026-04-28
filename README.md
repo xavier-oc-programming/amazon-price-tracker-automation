@@ -161,15 +161,15 @@ Runs `remove_cron.sh`. Deletes the cron entry and sends a confirmation email wit
 **Example terminal output (price above target):**
 
 ```
-Current price: 149.99
-No alert — price (149.99) is above target (190.00).
+Current price: $149.99
+No alert — price ($149.99) is above target ($190.00).
 ```
 
 **Example terminal output (price below target):**
 
 ```
-Current price: 149.99
-Price is below target (190.00). Sending alert...
+Current price: $149.99
+Price is below target ($190.00). Sending alert...
 Alert sent successfully.
 ```
 
@@ -501,15 +501,15 @@ To re-enable it, open menu.py and select option 3.
 Each daily run appends its stdout and stderr to `tracker.log` in the project root:
 
 ```
-Current price: 149.99
-No alert — price (149.99) is above target (190.00).
+Current price: $149.99
+No alert — price ($149.99) is above target ($190.00).
 ```
 
 or on alert:
 
 ```
-Current price: 149.99
-Price is below target (190.00). Sending alert...
+Current price: $149.99
+Price is below target ($190.00). Sending alert...
 Alert sent successfully.
 ```
 
