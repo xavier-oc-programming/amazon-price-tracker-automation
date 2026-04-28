@@ -68,6 +68,8 @@ try:
             to_addrs=TARGET_EMAIL,
             msg=message.encode("utf-8"),
         )
-    print(f"Confirmation email sent to {TARGET_EMAIL}.")
+    local, domain = TARGET_EMAIL.split("@", 1)
+    masked = local[:3] + "***@" + domain
+    print(f"Confirmation email sent to {masked}.")
 except Exception as exc:
     print(f"Could not send confirmation email: {exc}")
