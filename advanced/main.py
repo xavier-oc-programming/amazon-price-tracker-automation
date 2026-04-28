@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).parent.parent / ".env")
 
-from config import TARGET_PRICE
+from config import TARGET_PRICE, PRODUCT_NAME
 from scraper import AmazonScraper
 from notifier import EmailNotifier
 
@@ -27,7 +27,7 @@ notifier = EmailNotifier(
 
 try:
     price = scraper.get_price()
-    print(f"Current price: ${price:.2f}")
+    print(f"{PRODUCT_NAME}: ${price:.2f}")
 
     if price < TARGET_PRICE:
         print(f"Price is below target (${TARGET_PRICE:.2f}). Sending alert...")
